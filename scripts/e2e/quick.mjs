@@ -1,0 +1,22 @@
+// Carrega o jogo e salva uma captura: node scripts/e2e/quick.mjs <url> <saida.png> [js para avaliar]
+import { createRequire } from 'node:module';
+const { chromium } = createRequire(import.meta.url)('playwright');
+const [url, out, script] = process.argv.slice(2);
+const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+const errors = [];
+page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(`${m.type()}: ${m.text()}`); });
+page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
+const t0 = Date.now();
+await page.goto(url);
+await page.waitForFunction(() => window.__lifeWorld !== undefined || document.querySelector('.screen--error'), null, { timeout: 180000 });
+console.log('loaded in', (Date.now() - t0) / 1000, 's');
+await page.evaluate(() => window.__lifeWorld.stopLoop());
+if (script) console.log('eval:', JSON.stringify(await page.evaluate(script)));
+const t1 = Date.now();
+await page.evaluate(() => { window.__lifeWorld.simulate(0.5); window.__lifeWorld.pushUI(); window.__lifeWorld.render(); });
+console.log('render ms', Date.now() - t1);
+await page.waitForTimeout(300);
+await page.screenshot({ path: out });
+console.log(errors.slice(0, 20).join('\n'));
+await browser.close();

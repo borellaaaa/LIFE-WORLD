@@ -158,8 +158,10 @@ distância (SDF), extrai a malha (surface nets), simplifica (meshoptimizer), cal
 assa oclusão ambiente e gera as animações em keyframes, exportando `public/models/character.glb`.
 
 Para trocar por um modelo feito em Blender/Mixamo, basta exportar um GLB humanoide com clipes chamados
-`Idle`, `Walk`, `Run`, `Sit`, `SitUse`, `Sleep`, `Use` e `Phone` e salvar no mesmo caminho. O jogo não
-depende da malha atual.
+`Idle`, `Walk`, `Run`, `Sit`, `SitUse`, `Sleep`, `Use` e `Phone` e salvar no mesmo caminho (ou apontar
+outro arquivo com a variável `VITE_CHARACTER_URL` no build). O jogo não depende da malha atual.
+`scripts/tools/glb-to-gltf.mjs` converte um `.glb` em `.gltf` (JSON com o buffer embutido), para
+hospedagens que não servem arquivos `.glb`.
 
 ## Créditos
 

@@ -9,7 +9,11 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { PoseClip } from '../sim/activities';
 
-export const CHARACTER_URL = `${import.meta.env.BASE_URL}models/character.glb`;
+/**
+ * Caminho do modelo do personagem. Pode ser trocado no build com a variável
+ * VITE_CHARACTER_URL (ex.: outro GLB/glTF exportado do Blender ou Mixamo).
+ */
+export const CHARACTER_URL: string = import.meta.env.VITE_CHARACTER_URL ?? `${import.meta.env.BASE_URL}models/character.glb`;
 
 interface Locomotion {
   walkSpeed: number;

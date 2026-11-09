@@ -39,12 +39,23 @@ npm run build
 npm run preview
 ```
 
+### Jogar sem instalar nada (arquivo único)
+
+```bash
+npm run build:single
+```
+
+Gera `dist-single/life-world-3d.html` (≈ 6,6 MB) com todo o jogo embutido: código, física, modelo do
+personagem e fontes. Basta dar dois cliques no arquivo para abrir no Chrome ou no Edge; funciona sem
+internet e sem servidor.
+
 ### Scripts
 
 | Comando | O que faz |
 | --- | --- |
 | `npm run dev` | Servidor de desenvolvimento (Vite, recarga instantânea) |
 | `npm run build` | Checagem de tipos + build de produção em `dist/` |
+| `npm run build:single` | Gera o jogo inteiro num único `.html` em `dist-single/` |
 | `npm run preview` | Serve o build de produção em http://localhost:4173 |
 | `npm run typecheck` | Só a checagem de tipos do TypeScript |
 | `npm test` | Testes unitários (Vitest) da simulação |
